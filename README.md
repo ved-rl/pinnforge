@@ -103,11 +103,11 @@ The setup is 9x longer and you still need to write your own validation and plots
 | Auto-generated plots | ✅ | ❌ | ❌ |
 | Sensible defaults per PDE | ✅ | ❌ | ❌ |
 | Built-in numerical solvers | ✅ | ❌ | ❌ |
-| Multi-backend (TF / JAX / PyTorch) | PyTorch only | ✅ | PyTorch |
+| Multi-backend | PyTorch only | ✅ | PyTorch |
 | 3D+ problems | Limited | ✅ | Limited |
-| Battle-tested since 2019 | ❌ (v0.1) | ✅ | ❌ |
+| Tested since 2019 | ❌ (v0.1) | ✅ | ❌ |
 
-**The trade-off is on purpose.** PINNForge trades depth for time-to-result. If you need complex PDEs or production-scale 3D problems, use DeepXDE. If you want to try an idea in 5 minutes with minimal code, use PINNForge.
+PINNForge trades depth for time-to-result. If you need complex PDEs or production-scale 3D problems, use DeepXDE. If you want to try an idea in 5 minutes with minimal code, use PINNForge.
 
 ## What's Included
 
