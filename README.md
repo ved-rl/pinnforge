@@ -4,7 +4,7 @@
 
 ![PINNForge demo](docs/demo.gif)
 
-PINNForge is a lightweight wrapper around PyTorch that handles the boilerplate of Physics-Informed Neural Networks so you can focus on the physics.
+PINNForge is a lightweight wrapper around PyTorch that handles the boilerplate code of Physics-Informed Neural Networks so you can focus on the physics.
 
 ## Install
 
