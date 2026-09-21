@@ -95,28 +95,22 @@ The setup is 9x longer and you still need to write your own validation and plots
 
 ### Feature comparison
 
-| Feature | PINNForge | DeepXDE | PINNs-Torch |
-|---------|-----------|---------|-------------|
-| One-line solve API | ✅ | ❌ | ❌ |
-| Symbolic PDE definition (SymPy) | ✅ | ❌ | ❌ |
-| Auto-generated validation metrics | ✅ | ❌ | ❌ |
-| Auto-generated plots | ✅ | ❌ | ❌ |
-| Sensible defaults per PDE | ✅ | ❌ | ❌ |
-| Built-in numerical solvers | ✅ | ❌ | ❌ |
-| Multi-backend | PyTorch only | ✅ | PyTorch |
-| 3D+ problems | Limited | ✅ | Limited |
-| Tested since 2019 | ❌ (v0.1) | ✅ | ❌ |
+Features that PINNForge has that DeepXDE and PINNs-Torch do not:\
+&nbsp;&nbsp;&nbsp;&nbsp;-One-line solve API\
+&nbsp;&nbsp;&nbsp;&nbsp;-Symbolic PDE definition (SymPy)\
+&nbsp;&nbsp;&nbsp;&nbsp;-Automatically generated validation metrics and plots\
+&nbsp;&nbsp;&nbsp;&nbsp;-Built in numerical solvers
 
-PINNForge trades depth for time-to-result. If you need complex PDEs or production-scale 3D problems, use DeepXDE. If you want to try an idea in 5 minutes with minimal code, use PINNForge.
+However, DeepXDE is multi-backend, is better for 3D+ problem, and tested since 2019 which are advantages over PINNForge. PINNForge trades depth for ease of use and time-to-result. If you need complex PDEs or 3D problems, use DeepXDE. If you want to try an idea in 5 minutes with minimal code, use PINNForge.
 
 ## What's Included
 
-- **`solve_pde()`** — one-line API for common PDEs (Heat, Burgers, Wave)
-- **`AutoPINN`** — configurable solver with auto-selected hyperparameters
-- **`PINN`** — the underlying neural network module
-- **`SymbolicPDE`** — define custom PDEs using SymPy math notation
-- **`NumericalSolver`** — finite-difference reference solutions
-- **`ExperimentLogger`** — automatic logging of training metrics and checkpoints
+- **`solve_pde()`**: one-line API for common PDEs (Heat, Burgers, Wave)
+- **`AutoPINN`**: configurable solver with auto-selected hyperparameters
+- **`PINN`**: the underlying neural network module
+- **`SymbolicPDE`**: define custom PDEs using SymPy math notation
+- **`NumericalSolver`**: finite-difference reference solutions
+- **`ExperimentLogger`**: automatic training metrics and checkpoint logging
 
 ## Custom PDEs with SymPy
 
@@ -136,24 +130,24 @@ print(result['metrics'])
 
 ## Known Limitations (v0.1.0)
 
-This is an early release. Some limitations:
+This is an early release. Some limitations are:
 
-- **Fourier feature embeddings are implemented but disabled by default.** They currently cause training collapse on test problems (error jumps from 1e-2 to 1.2). Help wanted — see [#3](https://github.com/ved-rl/pinnforge/issues/3).
-- **Adaptive loss weighting is implemented but disabled by default.** Same reason.
+- **Fourier feature embeddings are implemented but disabled by default.** They currently cause training collapse on test problems (error jumps from 1e-2 to 1.2). Help wanted: see [#1](https://github.com/ved-rl/pinnforge/issues/1).
+- **Adaptive loss weighting is implemented but disabled by default.** Same reason as Fourier.
 - **Adaptive activation (SA-PINN) is disabled by default.** Interacts badly with Fourier features.
-- **Burgers equation validation returns `{}`.** The analytical solution currently in the code is the Heat equation's solution, not Burgers'. Burgers has no simple solution for this initial condition. See [#4](https://github.com/ved-rl/pinnforge/issues/4).
+- **Burgers equation validation returns `{}`.** The analytical solution currently in the code is the Heat equation's solution, not Burgers'. Burgers has no simple solution for this initial condition. See [#2](https://github.com/ved-rl/pinnforge/issues/2).
 - **Only 1D problems are supported.** Multi-dimensional PDEs are planned for v0.2.0.
 - **No CLI yet.** Everything is Python-only.
 
 ## Contributing
 
-This is a new project and there are several tasks that would help a lot. If you're looking for a place to contribute to SciML tooling, this project is a place where help is welcome.
+This is a new project and there are several tasks that would help a lot. If you're looking for a place to contribute to SciML tooling, help is greatly appreciated
 
 ### Good First Issues
 
 | Task | Difficulty | Description |
 |------|------------|-------------|
-| **Fix Burgers analytical solution** | Easy | The `BurgersEquation.analytical_solution` method returns the Heat solution. Replace with `NotImplementedError` and fall back to the numerical solver. See [#4](https://github.com/ved-rl/pinnforge/issues/4). |
+| **Fix Burgers analytical solution** | Easy | The `BurgersEquation.analytical_solution` method returns the Heat solution. Replace with `NotImplementedError` and fall back to the numerical solver. See [#2](https://github.com/ved-rl/pinnforge/issues/2). |
 | **Add tests for Wave equation** | Easy | `WaveEquation` exists in `pdes.py` but has no test coverage. Add a basic smoke test to `tests/test_pdes.py`. |
 | **Add a quickstart notebook** | Easy | Create `examples/quickstart.ipynb` that walks through the 3-line API and shows results inline. |
 | **Improve error messages** | Easy | Several places raise generic errors. Add context-specific messages for common failure modes. |
@@ -162,8 +156,8 @@ This is a new project and there are several tasks that would help a lot. If you'
 
 | Task | Difficulty | Description |
 |------|------------|-------------|
-| **Fix Fourier feature implementation** | Medium | Features collapse to a constant output. Current implementation uses only `output_dim // 2` random projections; standard RFF uses 128+. See [#3](https://github.com/ved-rl/pinnforge/issues/3). |
-| **L-BFGS fine-tuning** | Medium | Adding L-BFGS as a second-stage optimizer (as DeepXDE does) would improve final accuracy by 10x. |
+| **Fix Fourier feature implementation** | Medium | Features collapse to a constant output. Current implementation uses only `output_dim // 2` random projections, while standard RFF uses 128+. See [#1](https://github.com/ved-rl/pinnforge/issues/1). |
+| **L-BFGS fine-tuning** | Medium | Adding L-BFGS as a second-stage optimizer like DeepXDE does would improve final accuracy by 10x. |
 | **2D PDE support** | Hard | Currently limited to 1D spatial domains. Requires changes to `pdes.py`, `data.py`, and the `PINN` class. |
 | **JAX backend** | Hard | Optional JAX backend for 5-10x faster training. See `jinns` for reference. |
 | **Adaptive sampling (RAR)** | Medium | Residual-based adaptive refinement. Sample new collocation points where the PDE residual is highest. |
