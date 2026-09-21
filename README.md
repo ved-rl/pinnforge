@@ -1,5 +1,6 @@
 # PINNForge
-
+[![PyPI version](https://badge.fury.io/py/pinnforge.svg)](https://pypi.org/project/pinnforge/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\
 **Solve partial differential equations in 3 lines of code.**
 
 ![PINNForge demo](docs/demo.gif)
