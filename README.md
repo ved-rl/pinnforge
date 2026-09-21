@@ -22,11 +22,11 @@ print(f"Relative L2 error: {result['metrics']['relative_l2_error']:.2e}")
 # Relative L2 error: 3.42e-02
 ```
 
-That's it. The library automatically builds the network, generates training points, trains, validates, and returns metrics.
+The library automatically builds the network, generates training points, trains, validates, and returns metrics.
 
 ## Why PINNForge?
 
-Setting up a PINN in the standard tooling requires 25+ lines of boilerplate before you see your first result. PINNForge gets you there in 3.
+Setting up a PINN in the standard tooling requires 25+ lines of boilerplate before you see your first result. PINNForge does it in 3.
 
 ### Side-by-side: solving the 1D Heat equation
 
@@ -45,7 +45,7 @@ result = solve_pde("heat", epochs=5000)
 print(result['metrics']['relative_l2_error'])
 ```
 
-That's the whole program. Everything else is handled by the library.
+Everything else is handled by the library.
 
 </td>
 <td>
@@ -136,18 +136,18 @@ print(result['metrics'])
 
 ## Known Limitations (v0.1.0)
 
-This is an early release. Here's what doesn't work yet:
+This is an early release. Some limitations:
 
 - **Fourier feature embeddings are implemented but disabled by default.** They currently cause training collapse on test problems (error jumps from 1e-2 to 1.2). Help wanted — see [#3](https://github.com/ved-rl/pinnforge/issues/3).
 - **Adaptive loss weighting is implemented but disabled by default.** Same reason.
 - **Adaptive activation (SA-PINN) is disabled by default.** Interacts badly with Fourier features.
-- **Burgers equation validation returns `{}`.** The analytical solution currently in the code is the Heat equation's solution, not Burgers'. Burgers has no simple closed-form solution for this initial condition. See [#4](https://github.com/ved-rl/pinnforge/issues/4).
+- **Burgers equation validation returns `{}`.** The analytical solution currently in the code is the Heat equation's solution, not Burgers'. Burgers has no simple solution for this initial condition. See [#4](https://github.com/ved-rl/pinnforge/issues/4).
 - **Only 1D problems are supported.** Multi-dimensional PDEs are planned for v0.2.0.
 - **No CLI yet.** Everything is Python-only.
 
 ## Contributing
 
-This is a young project and there are several tasks that would help a lot. If you're looking for a place to contribute to SciML tooling, this project is a place where help is welcome.
+This is a new project and there are several tasks that would help a lot. If you're looking for a place to contribute to SciML tooling, this project is a place where help is welcome.
 
 ### Good First Issues
 
