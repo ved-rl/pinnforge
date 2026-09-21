@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pinnforge"
+version = "0.1.0"
+description = "Solve PDEs in 3 lines of code"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Vedauv Rajkumar Leelavathi", email = "vedauvrajkumarleelavathi@gmail.com" }
+]
+dependencies = [
+    "torch>=1.9.0",
+    "numpy>=1.21.0",
+    "sympy>=1.9.0",
+    "matplotlib>=3.4.0",
+    "scipy>=1.7.0",
+    "pyyaml>=5.4.0",
+    "tqdm>=4.62.0"
+]
+
+[project.urls]
+Repository = "https://github.com/ved-rl/pinnforge"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0.0",
+    "pytest-cov>=2.12.0",
+    "black>=21.0.0",
+    "flake8>=3.9.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
